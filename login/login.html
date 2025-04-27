@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HTML Login Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="main">
+        <h1>Prijava</h1>
+        <h3>Unesite svoje podatke</h3>
+
+        <form action="">
+            <label for="first">
+                Username:
+            </label>
+            <input type="text" id="first" name="first" 
+                placeholder="Unesite korisničko ime" required>
+
+            <label for="password">
+                Password:
+            </label>
+            <input type="password" id="password" name="password" 
+                placeholder="Unesite lozinku" required>
+
+            <div class="wrap">
+                <button type="button" onclick="location.href='../index.html'">
+                   Prijava
+                </button>
+            </div>
+        </form>
+        
+        <p>Nemate račun?
+            <a href="register.html" style="text-decoration: none;">
+                Registrirajte se
+            </a>
+        </p>
+    </div>
+</body>
+
+</html>
