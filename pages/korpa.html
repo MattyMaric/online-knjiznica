@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korpa | Online Knjižara</title>
+    <link rel="stylesheet" href="../korpa.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <span>Knjižara</span>
+            </div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Žanr</a>
+                <a href="#">Želje</a>
+                <a href="#" class="active">Korpa</a>
+                <a href="#">Moj račun</a>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Cart Content -->
+    <main>
+        <div class="page-title">
+            <h1>Vaša Korpa</h1>
+            <p>Pregledajte i uredite artikle u vašoj korpi</p>
+        </div>
+
+        <div class="cart-container">
+            <!-- Cart Items -->
+            <div class="cart-items">
+                <!-- Item 1 -->
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="https://m.media-amazon.com/images/I/81YyraOaX1L._AC_UF1000,1000_QL80_.jpg" alt="Gospodar Prstenova: Družina Prstena">
+                    </div>
+                    <div class="item-details">
+                        <h3>Gospodar Prstenova: Družina Prstena</h3>
+                        <p class="author">J.R.R. Tolkien</p>
+                        <p class="type">Kupuje</p>
+                    </div>
+                    <div class="item-price">
+                        <span>19.99 KM</span>
+                    </div>
+                    <div class="item-remove">
+                        <button class="remove-btn">
+                            <i class="fas fa-trash"></i>
+                            <span>UKLONI</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="https://m.media-amazon.com/images/I/81iqZ2HHD-L._AC_UF1000,1000_QL80_.jpg" alt="Harry Potter i Kamen Mudraca">
+                    </div>
+                    <div class="item-details">
+                        <h3>Harry Potter i Kamen Mudraca</h3>
+                        <p class="author">J.K. Rowling</p>
+                        <p class="type">Posuđuje</p>
+                    </div>
+                    <div class="item-price">
+                        <span>19.99 KM</span>
+                    </div>
+                    <div class="item-remove">
+                        <button class="remove-btn">
+                            <i class="fas fa-trash"></i>
+                            <span>UKLONI</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="https://m.media-amazon.com/images/I/71OZY035QKL._AC_UF1000,1000_QL80_.jpg" alt="Mali Princ">
+                    </div>
+                    <div class="item-details">
+                        <h3>Mali Princ</h3>
+                        <p class="author">Antoine de Saint-Exupéry</p>
+                        <p class="type">Kupuje</p>
+                    </div>
+                    <div class="item-price">
+                        <span>19.99 KM</span>
+                    </div>
+                    <div class="item-remove">
+                        <button class="remove-btn">
+                            <i class="fas fa-trash"></i>
+                            <span>UKLONI</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart Summary -->
+            <div class="cart-summary">
+                <div class="summary-details">
+                    <div class="summary-row">
+                        <span>Artikli (3):</span>
+                        <span>59.97 KM</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Dostava:</span>
+                        <span>Besplatno</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>UKUPNO:</span>
+                        <span>59.97 KM</span>
+                    </div>
+                    <button class="confirm-button">
+                        <span>POTVRDI NARUDŽBU</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <div class="continue-shopping">
+                        <a href="#"><i class="fas fa-long-arrow-alt-left"></i> Nastavi kupovinu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Knjižara Online</h3>
+                <p>Vaša omiljena online knjižara sa najvećim izborom knjiga u regiji.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Brze Veze</h3>
+                <ul>
+                    <li><a href="#">O nama</a></li>
+                    <li><a href="#">Kontakt</a></li>
+                    <li><a href="#">Česta pitanja</a></li>
+                    <li><a href="#">Uvjeti korištenja</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Kontaktirajte nas</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Glavna ulica 123, Sarajevo</p>
+                <p><i class="fas fa-phone"></i> +387 33 123 456</p>
+                <p><i class="fas fa-envelope"></i> info@knjizara.ba</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Knjižara Online. Sva prava pridržana.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
