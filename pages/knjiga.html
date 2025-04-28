@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalji knjige | Online Knjižara</title>
+    <link rel="stylesheet" href="../css/knjiga.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation component placeholder -->
+    <div id="navbar-container"></div>
+
+    <!-- Book Details Content -->
+    <main>
+        <div class="book-container">
+            <div class="book-header">
+                <div class="book-image">
+                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Knjiga">
+                    <div class="book-categories">
+                        <span class="category">#fantastika</span>
+                        <span class="category">#avantura</span>
+                    </div>
+                </div>
+                
+                <div class="book-info">
+                    <h1 class="book-title">Gospodar Prstenova - J.R.R. Tolkien</h1>
+                    
+                    <div class="book-description">
+                        <h3>Kratak opis:</h3>
+                        <p>Epska fantastična priča koja prati putovanje Froda Bagginsa i Družine Prstena dok pokušavaju uništiti Jedinstveni Prsten i poraziti mračnog gospodara Saurona. Ova knjiga je prva u trilogiji Gospodar Prstenova i postavlja temelje za jednu od najpoznatijih fantastičnih saga svih vremena.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="book-options">
+                <div class="option">
+                    <span class="option-text">Posudi 15 dana</span>
+                    <span class="option-price">5.00 KM</span>
+                </div>
+                
+                <div class="option">
+                    <span class="option-text">Posudi 30 dana</span>
+                    <span class="option-price">9.00 KM</span>
+                </div>
+                
+                <div class="option">
+                    <span class="option-text">Kupi</span>
+                    <span class="option-price">30.00 KM</span>
+                </div>
+            </div>
+            
+            <div class="similar-books">
+                <h3>Slične knjige:</h3>
+                <div class="similar-books-grid">
+                    <div class="similar-book">
+                        <img src="https://images.unsplash.com/photo-1629992101753-56d196c8aabb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=690&q=80" alt="Slična knjiga">
+                    </div>
+                    <div class="similar-book">
+                        <img src="https://images.unsplash.com/photo-1621351183012-e2f9972dd9bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Slična knjiga">
+                    </div>
+                    <div class="similar-book">
+                        <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80" alt="Slična knjiga">
+                    </div>
+                    <div class="similar-book">
+                        <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Slična knjiga">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer component placeholder -->
+    <div id="footer-container"></div>
+
+    <!-- JavaScript for components -->
+    <script src="../js/components.js"></script>
+    <script>
+        // Add click event listeners to options
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
