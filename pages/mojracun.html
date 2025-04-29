@@ -10,7 +10,18 @@
 </head>
 <body>
     <!-- Navigation component placeholder -->
-    <div id="navbar-container"></div>
+    <div id="navbar-container">
+        <nav class="navbar">
+            <div class="logo">Logo</div>
+                <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="zanr.html">Žanr</a></li>
+                <li><a href="zelje.html">Želje</a></li>
+                <li><a href="korpa.html">Korpa</a></li>
+                <li><a href="mojracun.html">Moj račun</a></li>
+            </ul>
+        </nav>
+    </div>
 
     <!-- Account Content -->
     <main>
@@ -52,10 +63,10 @@
                         </div>
                     </div>
                     
-                    <button class="cart-button">
+                    <a href="korpa.html" style="text-decoration: none;"><button class="cart-button">
                         <i class="fas fa-shopping-cart"></i>
                         KORPA
-                    </button>
+                    </button></a>
                 </div>
                 
                 <!-- Right Column -->
@@ -100,10 +111,10 @@
                             </div>
                         </div>
                         
-                        <button class="logout-button">
+                        <a href="../login/login.html" style="text-decoration: none;"><button class="logout-button">
                             <i class="fas fa-sign-out-alt"></i>
                             ODJAVA
-                        </button>
+                        </button></a>
                     </div>
                 </div>
             </div>
@@ -111,7 +122,9 @@
     </main>
 
     <!-- Footer component placeholder -->
-    <div id="footer-container"></div>
+    <div id="footer-container">
+        <footer style="text-align: center;">&copy; 2025 Online-knjižnica. Sva prava pridržana.</footer>
+    </div>
 
     <!-- JavaScript for components -->
     <script src="../js/components.js"></script>
