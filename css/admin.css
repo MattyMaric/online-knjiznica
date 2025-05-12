@@ -261,7 +261,7 @@ main {
     border-top: 1px solid #e2e8f0;
 }
 
-.confirm-button {
+.add-btn {
     background-color: #5a67d8;
     color: white;
     border: none;
@@ -488,4 +488,22 @@ footer {
     .item-details h3 {
         font-size: 16px;
     }
+}
+input {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.input-row {
+    display: flex;
+    gap: 20px; /* razmak između dva inputa */
+    margin-bottom: 15px;
+}
+
+.input-row input {
+    flex: 1; /* svaki input zauzima pola reda */
 }

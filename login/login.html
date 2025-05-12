@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="hr">
 
 <head>
+    <meta charset="UTF-8">
     <title>HTML Login Form</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -24,7 +25,7 @@
                 placeholder="Unesite lozinku" required>
 
             <div class="wrap">
-                <button type="button" onclick="location.href='../index.html'">
+                <button type="button" onclick="login()">
                    Prijava
                 </button>
             </div>
@@ -36,5 +37,20 @@
             </a>
         </p>
     </div>
+
+    <script>
+        function login() {
+            const username = document.getElementById('first').value.trim();
+            const password = document.getElementById('password').value.trim();
+        
+            // Jednostavna provjera
+            if ((username.toLowerCase() === "admin") && password.toLowerCase()==="admin") {
+                window.location.href = "../pages/admin.html"; // Preusmjeri na admin stranicu
+            } else {
+                window.location.href = "../index.html"; // Inače na korisničku početnu
+            }
+        }
+        </script>
+        
 </body>
 </html>

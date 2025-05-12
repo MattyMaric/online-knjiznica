@@ -30,6 +30,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
+    border-bottom: 1px solid #ccc;
 }
 
 .logo {
@@ -243,6 +244,14 @@ main {
     font-size: 12px;
     font-weight: 500;
 }
+dialog {
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    font-family: 'Trebuchet MS', sans-serif;
+  }
 
 /* Footer styles - same as previous example */
 footer {

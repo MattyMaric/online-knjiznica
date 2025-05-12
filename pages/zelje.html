@@ -39,8 +39,8 @@
                         <p>J.R.R. Tolkien</p>
                     </div>
                     <div class="item-actions">
-                        <button class="action-btn buy-btn">Kupi</button>
-                        <button class="action-btn borrow-btn">Posudi</button>
+                        <a href="korpa.html"><button class="action-btn buy-btn">Kupi</button></a>
+                        <a href="korpa.html"><button class="action-btn borrow-btn">Posudi</button></a>
                         <button class="action-btn remove-btn">Ukloni</button>
                     </div>
                 </div>
@@ -86,6 +86,13 @@
                 <span>Chat</span>
             </button>
         </div>
+        <dialog id="chatDialog">
+            <form method="dialog">
+                <p><strong>Dobrodošli u chat!</strong></p>
+                <p>Kako vam možemo pomoći?</p>
+                <button>Close</button>
+            </form>
+        </dialog>
     </main>
 
     <!-- Footer component placeholder -->
@@ -95,5 +102,13 @@
 
     <!-- JavaScript for components -->
     <script src="../js/components.js"></script>
+    <script>
+        const chatBtn = document.querySelector('.chat-button button');
+        const chatDialog = document.getElementById('chatDialog');
+      
+        chatBtn.addEventListener('click', () => {
+          chatDialog.showModal();
+        });
+      </script>
 </body>
 </html>

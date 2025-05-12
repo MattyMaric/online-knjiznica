@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Online Knjižara</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation component placeholder -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="page-title">
+            <h1>Admin Panel</h1>
+            <p>Dodaj nove knjige ili ukloni postojeće</p>
+        </div>
+
+        <section class="admin-controls">
+            <form id="add-book-form">
+                <h2>Dodaj knjigu</h2>
+                <div class="input-row">
+                    <input type="text" id="book-title" placeholder="Naslov knjige" required>
+                    <input type="text" id="book-author" placeholder="Autor" required>
+                </div>
+            
+                <div class="input-row">
+                    <input type="text" id="book-price" placeholder="Cijena (KM)" required>
+                    <input type="url" id="book-image" placeholder="URL slike" required>
+                </div>
+                <button type="submit" class="add-btn">Dodaj knjigu</button>
+            </form>
+        </section>
+        <section class="book-list">
+            <h2>Popis knjiga</h2>
+            <div id="books-container" class="cart-items">
+                <!-- Knjige će se ovdje dinamički dodavati -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer component placeholder -->
+    <div id="footer-container"></div>
+
+    <script src="../js/components.js"></script>
+    <script>
+        const booksContainer = document.getElementById('books-container');
+        const addBookForm = document.getElementById('add-book-form');
+
+        addBookForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const title = document.getElementById('book-title').value;
+            const author = document.getElementById('book-author').value;
+            const price = document.getElementById('book-price').value;
+            const image = document.getElementById('book-image').value;
+
+            const bookItem = document.createElement('div');
+            bookItem.classList.add('cart-item');
+            bookItem.innerHTML = `
+                <div class="item-image">
+                    <img src="${image}" alt="${title}">
+                </div>
+                <div class="item-details">
+                    <h3>${title}</h3>
+                    <p class="author">${author}</p>
+                </div>
+                <div class="item-price">
+                    <span>${price} KM</span>
+                </div>
+                <div class="item-remove">
+                    <button class="remove-btn">
+                        <i class="fas fa-trash"></i>
+                        <span>UKLONI</span>
+                    </button>
+                </div>
+            `;
+
+            // Dodaj remove event
+            bookItem.querySelector('.remove-btn').addEventListener('click', function() {
+                booksContainer.removeChild(bookItem);
+            });
+
+            booksContainer.appendChild(bookItem);
+
+            addBookForm.reset();
+        });
+    </script>
+</body>
+</html>

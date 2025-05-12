@@ -34,10 +34,27 @@
         .custom-btn:hover{
             background-color: #5a67d8;
             color: white;
+            transition: all 0.3s ease-in;
         }
         .list-group-item{
             margin: 5px;
             border: 1px solid #ccc;
+        }
+        .carousel-control-next{
+            border: 1px solid #ccc;
+        }
+        .carousel-control-prev{
+            border: 1px solid #ccc;
+        }
+        .carousel-control-prev:hover{
+            background-color: #5a67d8;
+            color: white;
+            transition: all 0.3s ease-in; 
+        }
+        .carousel-control-next:hover{
+            background-color: #5a67d8;
+            color: white;
+            transition: all 0.3s ease-in;
         }
     </style>
 </head>
@@ -59,7 +76,7 @@
 
     <!-- Sadržaj stranice -->
     <div class="container my-5">
-
+        <h2 style="color: #989797">Naziv žanra</h2>
         <!-- Pretraži -->
         <div class="d-flex justify-content-end mb-4">
             <input type="text" class="form-control w-25" placeholder="Pretraži...">
@@ -71,7 +88,7 @@
 
                 <div class="carousel-item active">
                     <div class="d-flex justify-content-center gap-4">
-                        <img src="https://picsum.photos/id/1015/200/250" class="d-block" alt="Slika 1">
+                        <a href="knjiga.html"><img src="https://picsum.photos/id/1015/200/250" class="d-block" alt="Slika 1"></a>
                         <img src="https://picsum.photos/id/1025/200/250" class="d-block" alt="Slika 2">
                         <img src="https://picsum.photos/id/1035/200/250" class="d-block" alt="Slika 3">
                     </div>

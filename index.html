@@ -12,7 +12,8 @@
   
 <body>
 <!-- Navbar -->
-<nav class="navbar">
+ <div class="navbar-container">
+    <nav class="navbar">
     <div class="logo">Logo</div>
     <ul class="nav-links">
         <li><a href="#">Home</a></li>
@@ -22,6 +23,7 @@
         <li><a href="pages/mojracun.html">Moj račun</a></li>
     </ul>
 </nav>
+ </div>
 
 <!-- Istaknuto za Vas -->
 <section class="featured">
@@ -31,7 +33,7 @@
         <div class="carousel-viewport">
             <div class="carousel-wrapper" id="featured-carousel">
                 <div class="featured-item">
-                <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" alt="Knjiga 1">
+                <a href="pages/knjiga.html"><img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" alt="Knjiga 1"></a>
                 <div class="item-name">Knjiga A</div>
                 </div>
                 <div class="featured-item">
@@ -58,7 +60,7 @@
         <div class="bestsellers-viewport">
             <div class="bestsellers-items" id="bestsellers-carousel">
                 <div class="bestseller-item">
-                    <img src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383" alt="Bestseller 1">
+                    <a href="pages/knjiga.html"><img src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383" alt="Bestseller 1"></a>
                     <div class="item-name">Knjiga A</div>
                     <div class="item-desc">Uzbudljiv roman koji vas neće ostaviti ravnodušnim.</div>
                 </div>
@@ -80,8 +82,10 @@
 </section>
 
 <hr style="margin: 40px auto;">
+<!-- <script src="js/app.js"></script> -->
 <script src="js/app.js"></script>
-
-<footer><p>&copy; 2025 Online knjižnica. Sva prava pridržana.</p></footer>
+<div id="footer-container">
+    <footer><p>&copy; 2025 Online knjižnica. Sva prava pridržana.</p></footer>
+</div>
 </body>
 </html>
