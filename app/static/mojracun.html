@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Moj račun | Online Knjižnica</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/mojracun.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="navbar-container">
+        {% include 'navbar.html' %}
+    </div>
+
+    <main>
+        <div class="account-container">
+            <h2 class="account-title">Moj Račun:</h2>
+            <div class="account-content">
+                <!-- Left Column -->
+                <div class="account-left">
+                    <div class="profile-section">
+                        <div class="profile-image">
+                            <img src="{{ korisnik.slika_url or 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80' }}" alt="Profilna slika">
+                        </div>
+                        <div class="profile-name">{{ korisnik.ime }} {{ korisnik.prezime }}</div>
+                        <div class="form-group">
+                            <label for="ime">Ime:</label>
+                            <input type="text" id="ime" value="{{ korisnik.ime }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="prezime">Prezime:</label>
+                            <input type="text" id="prezime" value="{{ korisnik.prezime }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail:</label>
+                            <input type="email" id="email" value="{{ korisnik.email }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="adresa">Adresa:</label>
+                            <input type="text" id="adresa" value="{{ korisnik.adresa }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobitel">Mobitel:</label>
+                            <input type="tel" id="mobitel" value="{{ korisnik.broj_mobitela }}" readonly>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column -->
+                <div class="account-right">
+                    <div class="settings-card">
+                        <h3>Postavke</h3>
+                        <ul class="settings-list">
+                            <li>
+                                <a href="#"><i class="fas fa-user-edit"></i> Uredi profil</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fas fa-key"></i> Promijeni lozinku</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="membership-card">
+                        <h3>Članstvo</h3>
+                        <div class="form-group">
+                            <label for="datum-naplate">Datum naplate:</label>
+                            <input type="text" id="datum-naplate" value="15.05.2025" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="metoda-placanja">Metoda plaćanja:</label>
+                            <div class="payment-method">
+                                <i class="far fa-credit-card"></i>
+                                <span>**** **** **** 4321</span>
+                            </div>
+                        </div>
+                        <a href="/logout" style="text-decoration: none;">
+                            <button class="logout-button">
+                                <i class="fas fa-sign-out-alt"></i>
+                                ODJAVA
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="footer-container">
+        {% include 'footer.html' %}
+    </div>
+</body>
+</html>

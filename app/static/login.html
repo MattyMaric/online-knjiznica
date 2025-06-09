@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Prijava</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main">
+        <h1>Prijava</h1>
+        <h3>Unesite svoje podatke</h3>
+        <form action="/login" method="post">
+            <label for="korisnicko_ime">Korisničko ime:</label>
+            <input type="text" id="korisnicko_ime" name="korisnicko_ime" required>
+            <label for="lozinka">Lozinka:</label>
+            <input type="password" id="lozinka" name="lozinka" required>
+            <button type="submit">Prijavi se</button>
+        </form>
+        {% if error %}
+        <p style="color: red; margin-top: 16px;">{{ error }}</p>
+        {% endif %}
+        <p style="margin-top: 24px;">
+            Nemate račun?
+            <a href="/register">Registrirajte se</a>
+        </p>
+    </div>
+</body>
+</html>
