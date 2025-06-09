@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Knjige po kategoriji | Online Knjižnica</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+</head>
+<body>
+    <h2>Knjige u kategoriji</h2>
+    {% if knjige %}
+        <ul>
+        {% for knjiga in knjige %}
+            <li>
+                <strong>{{ knjiga.naziv_djela }}</strong>
+                {% if knjiga.autor %} - {{ knjiga.autor }}{% endif %}
+                {% if knjiga.opis %}<br><em>{{ knjiga.opis }}</em>{% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nema knjiga u ovoj kategoriji.</p>
+    {% endif %}
+    <a href="/kategorija">Natrag na kategorije</a>
+</body>
+</html>

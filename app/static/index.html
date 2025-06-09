@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Istaknuto - Online Knjižnica</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    {% if user_id %}
+  <p>Dobrodošao natrag!</p>
+{% else %}
+  <a href="/login">Prijava</a>
+{% endif %}
+
+    <!-- Navbar -->
+    <div class="navbar-container">
+        <nav class="navbar">
+            <div class="logo">Logo</div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="kategorija">Žanr</a></li>
+                <li><a href="pages/zelje.html">Želje</a></li>
+                <li><a href="pages/korpa.html">Korpa</a></li>
+                <li><a href="pages/mojracun.html">Moj račun</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Istaknuto za Vas -->
+    <section class="featured">
+        <h2>Za vas</h2>
+        <div class="carousel">
+            <button class="carousel-btn left" onclick="moveFeatured(-1)">&lt;</button>
+            <div class="carousel-viewport">
+                <div class="carousel-wrapper" id="featured-carousel">
+                    {% for knjiga in knjige[:6] %}
+                    <div class="featured-item">
+                        <img src="{{ knjiga.slika_url }}" alt="{{ knjiga.naziv_djela }}">
+                        <div class="item-name">{{ knjiga.naziv_djela }}</div>
+                        <div class="item-desc">{{ knjiga.autor }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <button class="carousel-btn right" onclick="moveFeatured(1)">&gt;</button>
+        </div>
+    </section>
+
+    <!-- Najprodavanije -->
+    <section class="bestsellers">
+        <h2>Najprodavanije</h2>
+        <hr style="margin: 40px auto;">
+        <div class="bestsellers-carousel">
+            <button class="carousel-btn left" onclick="moveBestsellers(-1)">&lt;</button>
+            <div class="bestsellers-viewport">
+                <div class="bestsellers-items" id="bestsellers-carousel">
+                    {% for knjiga in knjige[:6] %}
+                    <div class="bestseller-item">
+                        <a href="pages/knjiga.html?id={{ knjiga.id }}">
+                            <img src="{{ knjiga.slika_url }}" alt="{{ knjiga.naziv_djela }}">
+                        </a>
+                        <div class="item-name">{{ knjiga.naziv_djela }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <button class="carousel-btn right" onclick="moveBestsellers(1)">&gt;</button>
+        </div>
+    </section>
+
+    <hr style="margin: 40px auto;">
+    <div id="footer-container">
+        <footer>
+            <p>&copy; 2025 Online knjižnica. Sva prava pridržana.</p>
+        </footer>
+    </div>
+    <script src="{{ url_for('static', path='js/app.js') }}"></script>
+</body>
+
+</html>

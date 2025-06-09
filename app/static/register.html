@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Registracija</title>
+     <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+</head>
+<body>
+    <div class="main">
+        <h1>Registracija</h1>
+        <form action="/register" method="post">
+
+            <label for="korisnicko_ime">Korisničko ime:</label>
+            <input type="text" id="korisnicko_ime" name="korisnicko_ime" required>
+
+            <label for="ime">Ime:</label>
+            <input type="text" id="ime" name="ime" required>
+
+            <label for="prezime">Prezime:</label>
+            <input type="text" id="prezime" name="prezime" required>
+
+            <label for="datum_rodenja">Datum rođenja:</label>
+            <input type="date" id="datum_rodenja" name="datum_rodenja" required>
+
+            <label for="spol">Spol:</label>
+            <select id="spol" name="spol" required>
+                <option value="">Odaberi</option>
+                <option value="M">Muški</option>
+                <option value="Ž">Ženski</option>
+            </select>
+
+            <label for="adresa">Adresa:</label>
+            <input type="text" id="adresa" name="adresa">
+
+            <label for="broj_mobitela">Broj mobitela:</label>
+            <input type="text" id="broj_mobitela" name="broj_mobitela">
+
+            <label for="lozinka">Lozinka:</label>
+            <input type="password" id="lozinka" name="lozinka" required>
+
+            <button type="submit">Registriraj se</button>
+        </form>
+    </div>
+</body>
+</html>
