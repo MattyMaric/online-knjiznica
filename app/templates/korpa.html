@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Korpa | Online Knjižara</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/korpa.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="navbar-container">
+        {% include 'navbar.html' %}
+    </div>
+    <main>
+        <div class="page-title">
+            <h1>Vaša Korpa</h1>
+            <p>Pregledajte i uredite artikle u vašoj korpi</p>
+        </div>
+        <div class="cart-container">
+            <div class="cart-items">
+                {% for knjiga in knjige %}
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="{{ knjiga.slika_url or url_for('static', path='img/default-book.png') }}" alt="{{ knjiga.naslov }}">
+                    </div>
+                    <div class="item-details">
+                        <h3>{{ knjiga.naslov }}</h3>
+                        <p class="author">{{ knjiga.autor }}</p>
+                        <p class="type">
+                            {% if knjiga.tip == "kupovina" %}Kupuje
+                            {% elif knjiga.tip == "posudba_15" %}Posuđuje (15 dana)
+                            {% elif knjiga.tip == "posudba_30" %}Posuđuje (30 dana)
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="item-price">
+                        <span>{{ knjiga.cijena|round(2) }} KM</span>
+                    </div>
+                    <div class="item-remove">
+                        <form action="/korpa/ukloni" method="post">
+                            <input type="hidden" name="stavka_id" value="{{ knjiga.stavka_id }}">
+                            <button class="remove-btn" type="submit">
+                                <i class="fas fa-trash"></i>
+                                <span>UKLONI</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                <p style="margin: 24px;">Vaša korpa je prazna.</p>
+                {% endfor %}
+            </div>
+            <div class="cart-summary">
+                <div class="summary-details">
+                    <div class="summary-row">
+                        <span>Artikli ({{ knjige|length }}):</span>
+                        <span>{{ ukupno|round(2) }} KM</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Dostava:</span>
+                        <span>Besplatno</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>UKUPNO:</span>
+                        <span>{{ ukupno|round(2) }} KM</span>
+                    </div>
+                    <button class="confirm-button">
+                        <span>POTVRDI NARUDŽBU</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <div class="continue-shopping">
+                        <a href="/"><i class="fas fa-long-arrow-alt-left"></i> Nastavi kupovinu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="footer-container">
+        {% include 'footer.html' %}
+    </div>
+</body>
+</html>

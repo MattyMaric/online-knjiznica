@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ knjiga.naslov }} | Detalji knjige</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/knjiga.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="navbar-container">
+        {% include 'navbar.html' %}
+    </div>
+
+    <main>
+        <div class="book-container">
+            <div class="book-header">
+                <div class="book-image">
+                    <img src="{{ knjiga.slika_url or url_for('static', path='img/default-book.png') }}" alt="Knjiga">
+                    <div class="book-categories">
+                        {% for kategorija in knjiga.kategorije %}
+                            <span class="category">#{{ kategorija.naziv }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="book-info">
+                    <h1 class="book-title">{{ knjiga.naslov }} - {{ knjiga.autor }}</h1>
+                    
+                    <div class="book-description">
+                        <h3>Kratak opis:</h3>
+                        <p>{{ knjiga.opis or "Nema opisa za ovu knjigu." }}</p>
+                    </div>
+                    <p><strong>Dostupno primjeraka:</strong> {{ knjiga.stanje or Nepoznato }}</p>
+                </div>
+            </div>
+
+                <form action="/zelje/dodaj" method="post" style="display:inline;">
+        <input type="hidden" name="knjiga_id" value="{{ knjiga.id }}">
+        <button type="submit" class="action-btn" style="background:#5a67d8; color:#fff;">
+            <i class="fas fa-heart"></i> Dodaj na listu želja
+        </button>
+    </form>
+            
+            <div class="book-options">
+                <div class="option">
+                    <span class="option-text">Posudi 15 dana</span>
+                    <span class="option-price">{{ (knjiga.cijena / 3)|round(2) }} KM</span>
+                </div>
+                <div class="option">
+                    <span class="option-text">Posudi 30 dana</span>
+                    <span class="option-price">{{ (knjiga.cijena / 2)|round(2) }} KM</span>
+                </div>
+                <a href="/korpa" style="text-decoration: none;">
+                    <div class="option">
+                        <span class="option-text">Kupi</span>
+                        <span class="option-price">{{ knjiga.cijena }} KM</span>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="similar-books">
+                <h3>Slične knjige:</h3>
+                <div class="similar-books-grid">
+                    {% for s_kljiga in slicne_knjige %}
+                    <div class="similar-book">
+                        <a href="/knjiga/{{ s_kljiga.id }}">
+                            <img src="{{ s_kljiga.slika_url or url_for('static', path='img/default-book.png') }}" alt="Slična knjiga">
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container">
+        {% include 'footer.html' %}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+        });
+    </script>
+
+
+</body>
+</html>

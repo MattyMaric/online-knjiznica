@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Uredi profil</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/mojracun.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="navbar-container">
+        {% include 'navbar.html' %}
+    </div>
+    <main>
+        <div class="account-container">
+            <h2>Uredi profil</h2>
+            <form method="post">
+                <div class="form-group">
+                    <label for="ime">Ime:</label>
+                    <input type="text" id="ime" name="ime" value="{{ korisnik.ime or '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="prezime">Prezime:</label>
+                    <input type="text" id="prezime" name="prezime" value="{{ korisnik.prezime or '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" value="{{ korisnik.email or '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="adresa">Adresa:</label>
+                    <input type="text" id="adresa" name="adresa" value="{{ korisnik.adresa or '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="broj_mobitela">Mobitel:</label>
+                    <input type="tel" id="broj_mobitela" name="broj_mobitela" value="{{ korisnik.broj_mobitela or '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="datum_rodenja">Datum rođenja:</label>
+                    <input type="date" id="datum_rodenja" name="datum_rodenja" value="{{ korisnik.datum_rodenja or '' }}">
+                </div>
+                <button type="submit">Spremi promjene</button>
+            </form>
+            {% if success %}
+                <p style="color: green;">{{ success }}</p>
+            {% endif %}
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>
+            {% endif %}
+        </div>
+    </main>
+    <div id="footer-container">
+        {% include 'footer.html' %}
+    </div>
+</body>
+</html>

@@ -11,27 +11,9 @@
 </head>
 
 <body>
-
-    {% if user_id %}
-  <p>Dobrodošao natrag!</p>
-{% else %}
-  <a href="/login">Prijava</a>
-{% endif %}
-
-    <!-- Navbar -->
-    <div class="navbar-container">
-        <nav class="navbar">
-            <div class="logo">Logo</div>
-            <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="kategorija">Žanr</a></li>
-                <li><a href="pages/zelje.html">Želje</a></li>
-                <li><a href="pages/korpa.html">Korpa</a></li>
-                <li><a href="pages/mojracun.html">Moj račun</a></li>
-            </ul>
-        </nav>
+        <div id="navbar-container">
+        {% include 'navbar.html' %}
     </div>
-
     <!-- Istaknuto za Vas -->
     <section class="featured">
         <h2>Za vas</h2>
@@ -76,11 +58,8 @@
 
     <hr style="margin: 40px auto;">
     <div id="footer-container">
-        <footer>
-            <p>&copy; 2025 Online knjižnica. Sva prava pridržana.</p>
-        </footer>
+        {% include 'footer.html' %}
     </div>
-    <script src="{{ url_for('static', path='js/app.js') }}"></script>
 </body>
 
 </html>

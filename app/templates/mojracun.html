@@ -43,6 +43,12 @@
                             <label for="mobitel">Mobitel:</label>
                             <input type="tel" id="mobitel" value="{{ korisnik.broj_mobitela }}" readonly>
                         </div>
+                        {% if korisnik.datum_rodenja %}
+                        <div class="form-group">
+                            <label for="datum_rodenja">Datum rođenja:</label>
+                            <input type="text" id="datum_rodenja" value="{{ korisnik.datum_rodenja }}" readonly>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
                 <!-- Right Column -->
@@ -51,10 +57,10 @@
                         <h3>Postavke</h3>
                         <ul class="settings-list">
                             <li>
-                                <a href="#"><i class="fas fa-user-edit"></i> Uredi profil</a>
+                                <a href="/edit-profile"><i class="fas fa-user-edit"></i> Uredi profil</a>
                             </li>
                             <li>
-                                <a href="#"><i class="fas fa-key"></i> Promijeni lozinku</a>
+                                <a href="/promjenalozinke"><i class="fas fa-key"></i> Promijeni lozinku</a>
                             </li>
                         </ul>
                     </div>
@@ -71,12 +77,12 @@
                                 <span>**** **** **** 4321</span>
                             </div>
                         </div>
-                        <a href="/logout" style="text-decoration: none;">
-                            <button class="logout-button">
+                        <form action="/logout" method="get" style="margin-top: 16px;">
+                            <button class="logout-button" type="submit">
                                 <i class="fas fa-sign-out-alt"></i>
                                 ODJAVA
                             </button>
-                        </a>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -85,5 +91,10 @@
     <div id="footer-container">
         {% include 'footer.html' %}
     </div>
+    {% if korisnik.admin %}
+        <span style="color: #fff; background: #007bff; padding: 2px 8px; border-radius: 6px; font-size: 0.9em;">
+            ADMIN
+        </span>
+    {% endif %}
 </body>
 </html>

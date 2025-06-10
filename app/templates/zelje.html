@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Vaše želje | Online Knjižnica</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/zelje.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="navbar-container">
+        {% include 'navbar.html' %}
+    </div>
+    <main>
+        <div class="wishlist-container">
+            <h2 class="wishlist-title">Vaše želje:</h2>
+            <div class="wishlist-items">
+                {% for knjiga in knjige %}
+                <div class="wishlist-item">
+                    <div class="item-image">
+                        <a href="/knjiga/{{ knjiga.id }}">
+                            <img src="{{ knjiga.slika_url or url_for('static', path='img/default-book.png') }}" alt="Knjiga">
+                        </a>
+                    </div>
+                    <div class="item-title">
+                        <a href="/knjiga/{{ knjiga.id }}">
+                            <h3>{{ knjiga.naziv_djela }}</h3>
+                            <p>{{ knjiga.autor }}</p>
+                        </a>
+                    </div>
+                    <div class="item-actions">
+                        <form action="/korpa/dodaj" method="post" style="display:inline;">
+                            <input type="hidden" name="knjiga_id" value="{{ knjiga.id }}">
+                            <button class="action-btn buy-btn" type="submit">Kupi</button>
+                        </form>
+                        <form action="/korpa/posudi" method="post" style="display:inline;">
+                            <input type="hidden" name="knjiga_id" value="{{ knjiga.id }}">
+                            <button class="action-btn borrow-btn" type="submit">Posudi</button>
+                        </form>
+                        <form action="/zelje/ukloni" method="post" style="display:inline;">
+                            <input type="hidden" name="knjiga_id" value="{{ knjiga.id }}">
+                            <button class="action-btn remove-btn" type="submit">Ukloni</button>
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                <p style="margin: 24px;">Vaš popis želja je prazan.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+    <div id="footer-container">
+        {% include 'footer.html' %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Promjena lozinke</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/editprofile.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="navbar-container">
+        {% include 'navbar.html' %}
+    </div>
+    <main>
+        <div class="account-container">
+            <h2>Promjena lozinke</h2>
+            <form method="post">
+                <div class="form-group">
+                    <label for="stara_lozinka">Stara lozinka:</label>
+                    <input type="password" id="stara_lozinka" name="stara_lozinka" required>
+                </div>
+                <div class="form-group">
+                    <label for="nova_lozinka">Nova lozinka:</label>
+                    <input type="password" id="nova_lozinka" name="nova_lozinka" required>
+                </div>
+                <div class="form-group">
+                    <label for="potvrda_lozinke">Potvrdi novu lozinku:</label>
+                    <input type="password" id="potvrda_lozinke" name="potvrda_lozinke" required>
+                </div>
+                <button type="submit">Promijeni lozinku</button>
+            </form>
+            {% if success %}
+                <p style="color: green;">{{ success }}</p>
+            {% endif %}
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>
+            {% endif %}
+        </div>
+    </main>
+    <div id="footer-container">
+        {% include 'footer.html' %}
+    </div>
+</body>
+</html>

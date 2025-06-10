@@ -1,3 +1,8 @@
+<head>
+
+    <link rel="stylesheet" href="{{ url_for('static', path='css/layout.css') }}">
+</head>
+
 <header>
     <nav>
         <div class="logo">
@@ -5,7 +10,7 @@
             <span>Knjižara</span>
         </div>
         <div class="nav-links">
-            <a href="/index.html">Home</a>
+            <a href="/">Home</a>
             <div class="dropdown">
                 <a href="#" class="dropdown-toggle">Žanr</a>
                 <div class="dropdown-menu">
@@ -15,9 +20,9 @@
                     <a href="#">Biografije</a>
                 </div>
             </div>
-            <a href="/pages/zelje.html">Želje</a>
-            <a href="/pages/korpa.html">Korpa</a>
-            <a href="/pages/mojracun.html">Moj račun</a>
+            <a href="/zelje">Želje</a>
+            <a href="/korpa">Korpa</a>
+            <a href="/mojracun">Moj račun</a>
         </div>
         <div class="mobile-menu">
             <i class="fas fa-bars"></i>
