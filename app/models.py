@@ -45,10 +45,12 @@ class Knjiga(Base):
     __tablename__ = "knjiga"
 
     id = Column(Integer, primary_key=True, index=True)
-    naziv_djela = Column(String, index=True)
+    naziv_djela = Column(String, nullable=False)
     autor = Column(String)
-    kategorija = Column(String)
-    cijena = Column(Float)
+    opis = Column(String)
+    cijena = Column(Float, nullable=False)
+    cijena15 = Column(Float, nullable=True) 
+    cijena30 = Column(Float, nullable=True) 
     stanje = Column(Integer)
     slika_url = Column(String, nullable=True)  # polje za URL slike ili putanju do slike
 
@@ -67,9 +69,10 @@ class Knjiga(Base):
 class Korpa(Base):
     __tablename__ = "korpa"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, index=True)
     korisnik_id = Column(Integer, ForeignKey("korisnik.id"))
     knjiga_id = Column(Integer, ForeignKey("knjiga.id"))
+    tip = Column(Integer, nullable=False)  # <-- OVO MORA POSTOJATI!
 
     korisnik = relationship("Korisnik", back_populates="korpa")
     knjiga = relationship("Knjiga", back_populates="korpa")

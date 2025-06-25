@@ -26,7 +26,9 @@
                 </div>
                 
                 <div class="book-info">
-                    <h1 class="book-title">{{ knjiga.naslov }} - {{ knjiga.autor }}</h1>
+                    <h1 class="book-title">{{ knjiga.naziv_djela }}</h1>
+                    <h1> - </h1>
+                    <h1 class="book-title">{{ knjiga.autor }}</h1>
                     
                     <div class="book-description">
                         <h3>Kratak opis:</h3>
@@ -43,35 +45,68 @@
         </button>
     </form>
             
-            <div class="book-options">
-                <div class="option">
-                    <span class="option-text">Posudi 15 dana</span>
-                    <span class="option-price">{{ (knjiga.cijena / 3)|round(2) }} KM</span>
-                </div>
-                <div class="option">
-                    <span class="option-text">Posudi 30 dana</span>
-                    <span class="option-price">{{ (knjiga.cijena / 2)|round(2) }} KM</span>
-                </div>
-                <a href="/korpa" style="text-decoration: none;">
-                    <div class="option">
-                        <span class="option-text">Kupi</span>
-                        <span class="option-price">{{ knjiga.cijena }} KM</span>
-                    </div>
-                </a>
-            </div>
-            
-            <div class="similar-books">
-                <h3>Slične knjige:</h3>
-                <div class="similar-books-grid">
-                    {% for s_kljiga in slicne_knjige %}
-                    <div class="similar-book">
-                        <a href="/knjiga/{{ s_kljiga.id }}">
-                            <img src="{{ s_kljiga.slika_url or url_for('static', path='img/default-book.png') }}" alt="Slična knjiga">
-                        </a>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
+            <div class="book-options" style="display: flex; gap: 18px; margin-top: 28px; flex-wrap: wrap;">
+    <form action="/korpa/dodaj" method="post">
+        <input type="hidden" name="knjiga_id" value="{{ knjiga.id }}">
+        <input type="hidden" name="tip" value="2">
+        <button type="submit" class="option" style="
+            background: #edf2ff;
+            color: #5a67d8;
+            border: 2px solid #5a67d8;
+            border-radius: 8px;
+            padding: 16px 28px;
+            font-size: 1.08em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.18s, color 0.18s, border 0.18s;
+            margin-bottom: 6px;
+            min-width: 170px;
+        ">
+            <span class="option-text">Posudi 15 dana</span><br>
+            <span class="option-price" style="font-size:1.1em;">{{ (knjiga.cijena15 or 0)|round(2) }} KM</span>
+        </button>
+    </form>
+    <form action="/korpa/dodaj" method="post">
+        <input type="hidden" name="knjiga_id" value="{{ knjiga.id }}">
+        <input type="hidden" name="tip" value="3">
+        <button type="submit" class="option" style="
+            background: #f0fff4;
+            color: #38a169;
+            border: 2px solid #38a169;
+            border-radius: 8px;
+            padding: 16px 28px;
+            font-size: 1.08em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.18s, color 0.18s, border 0.18s;
+            margin-bottom: 6px;
+            min-width: 170px;
+        ">
+            <span class="option-text">Posudi 30 dana</span><br>
+            <span class="option-price" style="font-size:1.1em;">{{ (knjiga.cijena30 or 0)|round(2) }} KM</span>
+        </button>
+    </form>
+    <form action="/korpa/dodaj" method="post">
+        <input type="hidden" name="knjiga_id" value="{{ knjiga.id }}">
+        <input type="hidden" name="tip" value="1">
+        <button type="submit" class="option" style="
+            background: #5a67d8;
+            color: #fff;
+            border: 2px solid #5a67d8;
+            border-radius: 8px;
+            padding: 16px 28px;
+            font-size: 1.08em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.18s, color 0.18s, border 0.18s;
+            margin-bottom: 6px;
+            min-width: 170px;
+        ">
+            <span class="option-text">Kupi</span><br>
+            <span class="option-price" style="font-size:1.1em;">{{ (knjiga.cijena or 0)|round(2) }} KM</span>
+        </button>
+    </form>
+</div>
         </div>
     </main>
 

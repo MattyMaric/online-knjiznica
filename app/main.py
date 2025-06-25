@@ -1,5 +1,5 @@
 from datetime import date, datetime
-from fastapi import FastAPI, Form, Request, Depends, Response
+from fastapi import FastAPI, Form, Request, Depends, Response, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
@@ -10,6 +10,7 @@ from database import SessionLocal, engine, Base
 from models import Knjiga, Korisnik, ListaZelja, Korpa
 from starlette.middleware.sessions import SessionMiddleware
 from crud.knjiga import dohvati_sve_kategorije, dohvati_knjige, get_books_by_kategorija
+from sqlalchemy.sql.expression import func
 
 
 # Kreiraj tablice u bazi
@@ -111,11 +112,9 @@ async def login(
 def home(request: Request, db: Session = Depends(get_db)):
     korisnik_id = request.session.get("korisnik_id")
     knjige = dohvati_knjige(db)
-    return templates.TemplateResponse("index.html", {
-        "request": request,
-        "knjige": knjige,
-        "korisnik_id": korisnik_id
-    })
+    bestsellers = db.query(Knjiga).order_by(func.random()).limit(10).all()
+    return templates.TemplateResponse("index.html", {"request": request, "bestsellers": bestsellers, "knjige": knjige,
+        "korisnik_id": korisnik_id})
                                       
 
 @app.get("/kategorija", response_class=HTMLResponse)
@@ -263,7 +262,7 @@ def detalji_knjige(request: Request, knjiga_id: int, db: Session = Depends(get_d
     if korisnik_id:
         na_listi_zelja = db.query(ListaZelja).filter_by(korisnik_id=korisnik_id, knjiga_id=knjiga_id).first() is not None
     return templates.TemplateResponse(
-        "knjiga.html", {"request": request, "knjiga": knjiga, "slicne_knjige": slicne_knjige, "na_listi_zelja": na_listi_zelja}
+        "knjiga.html", {"request": request, "knjiga": knjiga, "na_listi_zelja": na_listi_zelja}
     )
 
 @app.get("/zelje", response_class=HTMLResponse)
@@ -315,13 +314,12 @@ def prikazi_korpu(request: Request, db: Session = Depends(get_db)):
     knjige = []
     ukupno = 0.0
     for stavka in stavke:
-        cijena = stavka.knjiga.cijena
-        if stavka.tip == "posudba_15":
-            cijena = round(stavka.knjiga.cijena / 3, 2)
-        elif stavka.tip == "posudba_30":
-            cijena = round(stavka.knjiga.cijena / 2, 2)
-        else:
-            cijena = round(stavka.knjiga.cijena, 2)
+        if stavka.tip == 2:
+            cijena = round(stavka.knjiga.cijena15 or 0, 2)
+        elif stavka.tip == 3:
+            cijena = round(stavka.knjiga.cijena30 or 0, 2)
+        else:  # tip == 1
+            cijena = round(stavka.knjiga.cijena or 0, 2)
         ukupno += cijena
         knjige.append({
             "id": stavka.knjiga.id,
@@ -342,7 +340,7 @@ def prikazi_korpu(request: Request, db: Session = Depends(get_db)):
 def dodaj_u_korpu(
     request: Request,
     knjiga_id: int = Form(...),
-    tip: str = Form(...),  # "kupovina", "posudba_15", "posudba_30"
+    tip: int = Form(...),  # 1 = kupi, 2 = posudi 15, 3 = posudi 30
     db: Session = Depends(get_db)
 ):
     korisnik_id = request.session.get("korisnik_id")
@@ -368,3 +366,105 @@ def ukloni_iz_korpe(
         db.delete(stavka)
         db.commit()
     return RedirectResponse("/korpa", status_code=303)
+
+@app.post("/korpa/potvrdi")
+def potvrdi_narudzbu(request: Request, db: Session = Depends(get_db)):
+    korisnik_id = request.session.get("korisnik_id")
+    if not korisnik_id:
+        return RedirectResponse("/login")
+    db.query(Korpa).filter(Korpa.korisnik_id == korisnik_id).delete()
+    db.commit()
+    return RedirectResponse("/korpa", status_code=303)
+
+def require_admin(request: Request, db: Session):
+    korisnik_id = request.session.get("korisnik_id")
+    if not korisnik_id:
+        return None
+    korisnik = db.query(Korisnik).filter_by(id=korisnik_id).first()
+    if not korisnik or not korisnik.admin:
+        return None
+    return korisnik
+
+@app.get("/admin", response_class=HTMLResponse)
+def admin_panel(request: Request, db: Session = Depends(get_db)):
+    korisnik = require_admin(request, db)
+    if not korisnik:
+        return RedirectResponse("/", status_code=303)
+    korisnici = db.query(Korisnik).all()
+    knjige = db.query(Knjiga).all()
+    return templates.TemplateResponse("admin.html", {
+        "request": request,
+        "korisnici": korisnici,
+        "knjige": knjige
+    })
+
+@app.post("/admin/korisnik/obrisi")
+def obrisi_korisnika(
+    request: Request,
+    korisnik_id: int = Form(...),
+    db: Session = Depends(get_db)
+):
+    korisnik = require_admin(request, db)
+    if not korisnik:
+        return RedirectResponse("/", status_code=303)
+    korisnik_za_brisanje = db.query(Korisnik).filter_by(id=korisnik_id).first()
+    if korisnik_za_brisanje:
+        db.delete(korisnik_za_brisanje)
+        db.commit()
+    return RedirectResponse("/admin", status_code=status.HTTP_303_SEE_OTHER)
+
+@app.post("/admin/korisnik/toggle_admin")
+def toggle_admin(
+    request: Request,
+    korisnik_id: int = Form(...),
+    db: Session = Depends(get_db)
+):
+    korisnik = require_admin(request, db)
+    if not korisnik:
+        return RedirectResponse("/", status_code=303)
+    korisnik_za_toggle = db.query(Korisnik).filter_by(id=korisnik_id).first()
+    if korisnik_za_toggle:
+        korisnik_za_toggle.admin = not korisnik_za_toggle.admin
+        db.commit()
+    return RedirectResponse("/admin", status_code=status.HTTP_303_SEE_OTHER)
+
+@app.post("/admin/knjiga/dodaj")
+def dodaj_knjigu(
+    request: Request,
+    naslov: str = Form(...),
+    autor: str = Form(...),
+    cijena: float = Form(...),
+    cijena15: float = Form(...),
+    cijena30: float = Form(...),
+    slika_url: str = Form(...),
+    db: Session = Depends(get_db)
+):
+    korisnik = require_admin(request, db)
+    if not korisnik:
+        return RedirectResponse("/", status_code=303)
+    knjiga = Knjiga(
+        naziv_djela=naslov,
+        autor=autor,
+        cijena=cijena,
+        cijena15=cijena15,
+        cijena30=cijena30,
+        slika_url=slika_url
+    )
+    db.add(knjiga)
+    db.commit()
+    return RedirectResponse("/admin", status_code=status.HTTP_303_SEE_OTHER)
+
+@app.post("/admin/knjiga/obrisi")
+def obrisi_knjigu(
+    request: Request,
+    knjiga_id: int = Form(...),
+    db: Session = Depends(get_db)
+):
+    korisnik = require_admin(request, db)
+    if not korisnik:
+        return RedirectResponse("/", status_code=303)
+    knjiga = db.query(Knjiga).filter_by(id=knjiga_id).first()
+    if knjiga:
+        db.delete(knjiga)
+        db.commit()
+    return RedirectResponse("/admin", status_code=status.HTTP_303_SEE_OTHER)

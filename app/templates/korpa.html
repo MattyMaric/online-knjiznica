@@ -27,9 +27,9 @@
                         <h3>{{ knjiga.naslov }}</h3>
                         <p class="author">{{ knjiga.autor }}</p>
                         <p class="type">
-                            {% if knjiga.tip == "kupovina" %}Kupuje
-                            {% elif knjiga.tip == "posudba_15" %}Posuđuje (15 dana)
-                            {% elif knjiga.tip == "posudba_30" %}Posuđuje (30 dana)
+                            {% if knjiga.tip == 1 %}Kupuje
+                            {% elif knjiga.tip == 2 %}Posuđuje (15 dana)
+                            {% elif knjiga.tip == 3 %}Posuđuje (30 dana)
                             {% endif %}
                         </p>
                     </div>
@@ -64,10 +64,12 @@
                         <span>UKUPNO:</span>
                         <span>{{ ukupno|round(2) }} KM</span>
                     </div>
-                    <button class="confirm-button">
-                        <span>POTVRDI NARUDŽBU</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
+                    <form action="/korpa/potvrdi" method="post">
+                        <button class="confirm-button" type="submit">
+                            <span>POTVRDI NARUDŽBU</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
                     <div class="continue-shopping">
                         <a href="/"><i class="fas fa-long-arrow-alt-left"></i> Nastavi kupovinu</a>
                     </div>

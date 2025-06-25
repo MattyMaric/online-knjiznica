@@ -15,44 +15,42 @@
         {% include 'navbar.html' %}
     </div>
     <!-- Istaknuto za Vas -->
-    <section class="featured">
-        <h2>Za vas</h2>
-        <div class="carousel">
-            <button class="carousel-btn left" onclick="moveFeatured(-1)">&lt;</button>
-            <div class="carousel-viewport">
-                <div class="carousel-wrapper" id="featured-carousel">
-                    {% for knjiga in knjige[:6] %}
-                    <div class="featured-item">
-                        <img src="{{ knjiga.slika_url }}" alt="{{ knjiga.naziv_djela }}">
-                        <div class="item-name">{{ knjiga.naziv_djela }}</div>
-                        <div class="item-desc">{{ knjiga.autor }}</div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <button class="carousel-btn right" onclick="moveFeatured(1)">&gt;</button>
-        </div>
-    </section>
-
-    <!-- Najprodavanije -->
     <section class="bestsellers">
-        <h2>Najprodavanije</h2>
-        <hr style="margin: 40px auto;">
-        <div class="bestsellers-carousel">
-            <button class="carousel-btn left" onclick="moveBestsellers(-1)">&lt;</button>
-            <div class="bestsellers-viewport">
-                <div class="bestsellers-items" id="bestsellers-carousel">
-                    {% for knjiga in knjige[:6] %}
-                    <div class="bestseller-item">
-                        <a href="pages/knjiga.html?id={{ knjiga.id }}">
-                            <img src="{{ knjiga.slika_url }}" alt="{{ knjiga.naziv_djela }}">
-                        </a>
-                        <div class="item-name">{{ knjiga.naziv_djela }}</div>
-                    </div>
-                    {% endfor %}
+    <div class="bestsellers-carousel">
+        <button class="carousel-btn left" onclick="moveBestsellers(-1)">&lt;</button>
+        <div class="bestsellers-viewport" style="overflow:hidden;">
+            <div class="bestsellers-items" id="bestsellers-carousel" style="display:flex; transition:transform 0.5s;">
+                {% for knjiga in bestsellers %}
+                <div class="bestseller-item" style="min-width:300px; max-width:300px; margin-right:20px; background:#fff; border-radius:10px; box-shadow:0 2px 8px rgba(90,103,216,0.07); padding:18px 12px; display:flex; flex-direction:column; align-items:center;">
+                    <a href="/knjiga/{{ knjiga.id }}">
+                        <img src="{{ knjiga.slika_url or url_for('static', path='img/default-book.png') }}" alt="{{ knjiga.naziv_djela }}" style="width:120px; height:170px; object-fit:cover; border-radius:8px; margin-bottom:12px;">
+                    </a>
+                    <div class="item-name" style="font-weight:600; color:#2d3748; text-align:center;">{{ knjiga.naziv_djela }}</div>
+                    <div class="item-desc" style="color:#5a67d8; margin-bottom:6px;">{{ knjiga.autor }}</div>
+                    <div class="item-price" style="color:#5a67d8; font-weight:600;">{{ (knjiga.cijena or 0)|round(2) }} KM</div>
                 </div>
+                {% endfor %}
             </div>
-            <button class="carousel-btn right" onclick="moveBestsellers(1)">&gt;</button>
+        </div>
+        <button class="carousel-btn right" onclick="moveBestsellers(1)">&gt;</button>
+    </div>
+</section>
+
+    <!-- Preporučujemo vam -->
+    <section class="recommended-books" style="margin: 40px 0;">
+        <h2>Preporučujemo vam</h2>
+        <hr style="margin: 24px auto;">
+        <div class="recommended-row" style="display: flex; justify-content: center; gap: 32px;">
+            {% for knjiga in bestsellers[:3] %}
+            <div class="recommended-item" style="background:#fff; border-radius:10px; box-shadow:0 2px 8px rgba(90,103,216,0.07); padding:18px 12px; display:flex; flex-direction:column; align-items:center; min-width:300px; max-width:300px;">
+                <a href="/knjiga/{{ knjiga.id }}">
+                    <img src="{{ knjiga.slika_url or url_for('static', path='img/default-book.png') }}" alt="{{ knjiga.naziv_djela }}" style="width:120px; height:170px; object-fit:cover; border-radius:8px; margin-bottom:12px;">
+                </a>
+                <div class="item-name" style="font-weight:600; color:#2d3748; text-align:center;">{{ knjiga.naziv_djela }}</div>
+                <div class="item-desc" style="color:#5a67d8; margin-bottom:6px;">{{ knjiga.autor }}</div>
+                <div class="item-price" style="color:#5a67d8; font-weight:600;">{{ (knjiga.cijena or 0)|round(2) }} KM</div>
+            </div>
+            {% endfor %}
         </div>
     </section>
 
@@ -60,6 +58,59 @@
     <div id="footer-container">
         {% include 'footer.html' %}
     </div>
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const carousel = document.getElementById('bestsellers-carousel');
+    const items = Array.from(document.querySelectorAll('.bestseller-item'));
+    const itemsToShow = 3;
+    const itemWidth = items[0].offsetWidth + 20;
+    let currentIndex = itemsToShow; // Start from first "real" item
+
+    // Kloniraj zadnja 3 i prva 3 itema
+    for (let i = 0; i < itemsToShow; i++) {
+        const firstClone = items[i].cloneNode(true);
+        const lastClone = items[items.length - 1 - i].cloneNode(true);
+        carousel.appendChild(firstClone);
+        carousel.insertBefore(lastClone, carousel.firstChild);
+    }
+
+    // Sada imamo: [last3][originali][first3]
+    const totalItems = carousel.children.length;
+
+    // Postavi početni offset
+    carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+
+    function moveBestsellers(direction) {
+        currentIndex += direction;
+        carousel.style.transition = 'transform 0.5s cubic-bezier(.77,0,.18,1)';
+        carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+
+        // Kada animacija završi, resetiraj na pravi item bez animacije
+        carousel.addEventListener('transitionend', onTransitionEnd, { once: true });
+    }
+
+    function onTransitionEnd() {
+        if (currentIndex >= items.length + itemsToShow) {
+            // Prešli smo na klonirani početak, resetiraj na pravi početak
+            carousel.style.transition = 'none';
+            currentIndex = itemsToShow;
+            carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        }
+        if (currentIndex < itemsToShow) {
+            // Prešli smo na klonirani kraj, resetiraj na pravi kraj
+            carousel.style.transition = 'none';
+            currentIndex = items.length + itemsToShow - 1;
+            carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        }
+    }
+
+    window.moveBestsellers = moveBestsellers;
+    window.addEventListener('resize', () => {
+        carousel.style.transition = 'none';
+        carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+    });
+});
+</script>
 </body>
 
 </html>

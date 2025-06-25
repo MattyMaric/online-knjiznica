@@ -1,0 +1,114 @@
+body {
+    margin: 0;
+    font-family: 'Trebuchet MS', sans-serif;
+    background: linear-gradient(120deg, #5a67d8 0%, #8f98ec 100%);
+    min-height: 100vh;
+}
+
+.category-page-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 12px;
+}
+
+h2 {
+    text-align: center;
+    color: #2d3748;
+    font-size: 2em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background-color: #8f98ec;
+    border-radius: 10px;
+    width: 320px;
+    margin: 0 auto 28px auto;
+    padding: 8px 0;
+    border: 1px solid #5a67d8;
+    color: #fff;
+}
+
+.category-books-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+    margin: 36px 0 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.category-book-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(90,103,216,0.10);
+    padding: 24px 20px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: box-shadow 0.18s, transform 0.18s;
+    text-decoration: none;
+    color: inherit;
+    min-height: 180px;
+}
+
+.category-book-card:hover {
+    box-shadow: 0 8px 32px rgba(90,103,216,0.17);
+    transform: translateY(-3px) scale(1.02);
+    color: #5a67d8;
+}
+
+.category-book-title {
+    font-size: 1.18em;
+    color: #5a67d8;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.category-book-author {
+    color: #4a5568;
+    font-size: 0.98em;
+    margin-bottom: 8px;
+}
+
+.category-book-desc {
+    color: #2d3748;
+    font-size: 0.97em;
+    margin-bottom: 10px;
+}
+
+.category-book-price {
+    color: #5a67d8;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.back-btn {
+    display: inline-block;
+    margin: 38px auto 0 auto;
+    padding: 12px 28px;
+    background: #5a67d8;
+    color: #fff;
+    border-radius: 7px;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(90,103,216,0.10);
+    transition: background 0.18s, transform 0.18s;
+    text-align: center;
+    border: none;
+}
+
+.back-btn:hover {
+    background: #434190;
+    transform: translateY(-2px) scale(1.03);
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    .category-books-list {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+    h2 {
+        font-size: 1.3em;
+        width: 90%;
+    }
+}

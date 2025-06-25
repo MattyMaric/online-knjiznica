@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel | Online Knjižara</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/admin.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="navbar-container">
+        {% include 'navbar.html' %}
+    </div>
+    <main>
+        <div class="page-title">
+            <h1>Admin Panel</h1>
+            <p>Upravljajte korisnicima i knjigama</p>
+        </div>
+
+        <!-- KORISNICI -->
+        <section class="admin-users">
+            <h2>Korisnici</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ime</th>
+                        <th>Email</th>
+                        <th>Admin</th>
+                        <th>Akcije</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for korisnik in korisnici %}
+                    <tr>
+                        <td>{{ korisnik.id }}</td>
+                        <td>{{ korisnik.ime }} {{ korisnik.prezime }}</td>
+                        <td>{{ korisnik.email }}</td>
+                        <td>
+                            {% if korisnik.admin %}
+                                <span style="color: #48bb78;">DA</span>
+                            {% else %}
+                                <span style="color: #e53e3e;">NE</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form action="/admin/korisnik/obrisi" method="post" style="display:inline;">
+                                <input type="hidden" name="korisnik_id" value="{{ korisnik.id }}">
+                                <button type="submit" class="action-btn remove-btn" onclick="return confirm('Obrisati korisnika?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                            <form action="/admin/korisnik/toggle_admin" method="post" style="display:inline;">
+                                <input type="hidden" name="korisnik_id" value="{{ korisnik.id }}">
+                                <button type="submit" class="action-btn" style="background:#4299e1; color:#fff;">
+                                    {% if korisnik.admin %}Makni admin{% else %}Dodaj admin{% endif %}
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- DODAJ KNJIGU -->
+        <section class="admin-controls">
+            <form action="/admin/knjiga/dodaj" method="post" class="add-book-form">
+                <h2>Dodaj knjigu</h2>
+                <div class="input-row">
+                    <input type="text" name="naslov" placeholder="Naslov knjige" required>
+                    <input type="text" name="autor" placeholder="Autor" required>
+                </div>
+                <div class="input-row">
+                    <input type="number" name="cijena" placeholder="Cijena (KM)" step="0.01" required>
+                    <input type="url" name="slika_url" placeholder="URL slike" required>
+                </div>
+                <button type="submit" class="add-btn">Dodaj knjigu</button>
+            </form>
+        </section>
+
+        <!-- POPIS KNJIGA -->
+        <section class="book-list">
+            <h2>Popis knjiga</h2>
+            <div class="cart-items">
+                {% for knjiga in knjige %}
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="{{ knjiga.slika_url or url_for('static', path='img/default-book.png') }}" alt="{{ knjiga.naslov }}">
+                    </div>
+                    <div class="item-details">
+                        <h3>{{ knjiga.naslov }}</h3>
+                        <p class="author">{{ knjiga.autor }}</p>
+                    </div>
+                    <div class="item-price">
+                        <span>{{ knjiga.cijena|round(2) }} KM</span>
+                    </div>
+                    <div class="item-remove">
+                        <form action="/admin/knjiga/obrisi" method="post">
+                            <input type="hidden" name="knjiga_id" value="{{ knjiga.id }}">
+                            <button class="remove-btn" type="submit" onclick="return confirm('Obrisati knjigu?')">
+                                <i class="fas fa-trash"></i>
+                                <span>UKLONI</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                <p style="margin: 24px;">Nema knjiga u bazi.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    <div id="footer-container">
+        {% include 'footer.html' %}
+    </div>
+</body>
+</html>

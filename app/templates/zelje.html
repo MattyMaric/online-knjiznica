@@ -29,14 +29,9 @@
                         </a>
                     </div>
                     <div class="item-actions">
-                        <form action="/korpa/dodaj" method="post" style="display:inline;">
-                            <input type="hidden" name="knjiga_id" value="{{ knjiga.id }}">
-                            <button class="action-btn buy-btn" type="submit">Kupi</button>
-                        </form>
-                        <form action="/korpa/posudi" method="post" style="display:inline;">
-                            <input type="hidden" name="knjiga_id" value="{{ knjiga.id }}">
-                            <button class="action-btn borrow-btn" type="submit">Posudi</button>
-                        </form>
+                        <a href="/knjiga/{{ knjiga.id }}" class="action-btn" style="background:#5a67d8; color:#fff; text-decoration:none; border-radius:6px; padding:8px 18px; font-weight:500;">
+                            Detaljno...
+                        </a>
                         <form action="/zelje/ukloni" method="post" style="display:inline;">
                             <input type="hidden" name="knjiga_id" value="{{ knjiga.id }}">
                             <button class="action-btn remove-btn" type="submit">Ukloni</button>
